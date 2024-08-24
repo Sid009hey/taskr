@@ -1,0 +1,124 @@
+form{
+    opacity: 70%;
+}
+
+p, a, h1, h2{
+    opacity: 100% !important;
+}
+
+body {
+ background-image: url("../../static/bgxt.png");
+ background-size: cover;
+}
+
+.title{
+    color:#d8dee9;
+    font-size:40px;
+    font-family:Poppins;
+    font-weight:500
+}
+
+.grid {
+  margin:40px;
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  grid-gap: 20px;
+  opacity: 80%;
+}
+
+.grid-item {
+  font-size: 30px;
+  background-color: #282A36; 
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.box{
+    border-radius: 20px;
+    color:#d8dee9;
+    font-size:30px;
+    font-family:Poppins;
+    font-weight:500;
+    background-color: #3b4252;
+    padding: 20px;
+    border-radius: 20px;
+}
+
+.smallBox{
+    margin: 30px;
+    margin-bottom: 5px;
+    width: 60%;
+    border-radius: 20px;
+    color:#d8dee9;
+    font-size:30px;
+    font-family:Poppins;
+    font-weight:500;
+    background-color: #3b4252;
+    padding: 5px 30px;
+    border-radius: 20px;
+    opacity: 80%;
+}
+
+input{
+  color:#d8dee9;
+  font-size:20px;
+  margin-top: 40px;
+  background: #44475A;
+  border: 1px transparent;
+  border-radius: 50px;
+  padding: 1rem 2rem;
+  width: 50%;
+}
+
+button{
+  font-size:20px;
+  background: #d8dee9;
+  border: 2px transparent;
+  border-radius: 50px;
+  padding: 1rem 2rem;
+  width: auto;
+}
+
+.attnClass{
+    padding: 5px 10px;
+    background-color: #FF5555;
+    border-radius: 15px;
+    color: #121212;
+}
+.attnClassGreen{
+    padding: 5px 10px;
+    background-color: #74de6a;
+    border-radius: 15px;
+    color: #121212;
+}
+.attnClassOrange{
+    padding: 5px 10px;
+    background-color: #d08770;
+    border-radius: 15px;
+    color: #121212;
+}
+
+/*#deac6a orange,
+#de6a6a red
+*/
+
+.navbar{
+margin-top: 40px;
+}
+
+.navItem{
+    
+    color: #d8dee9;
+    font-size: 20px;
+    text-decoration: none;
+    font-family: Poppins;
+    padding: 10px;
+    border-radius: 10px;
+    transition: 0.2s ease;
+}
+
+.navItem:hover{
+    background-color: #d8dee9;
+    color: 121212;
+    transition: 0.2s ease;
+}

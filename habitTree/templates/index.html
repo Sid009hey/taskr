@@ -1,0 +1,41 @@
+<html>
+
+<head>
+<link rel="stylesheet" href="../static/styles/style.css">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+
+<body bgcolor=#282A36 >
+
+<center>
+<div class="navbar">
+<a href="/" class="navItem">Home</a>
+<a href="app" class="navItem">Tasks</a>
+<a href="/profile" class="navItem">Profile</a>
+</div>
+<br>
+</center>
+
+<div class="mainTitle">
+    <h1  class="title" align=center>Recents<br> <a class="attnClass">{{pName}}</a></h1>
+        <center><div class="smallBox">
+        <p align=center>Current Status : <a class="attnClassGreen">{{status}}</a></p>
+    </div></center>
+</div>
+
+<center>
+    <form class="taskMan" action="/" method="get">        
+            <input maxlength=11 autocomplete=off placeholder="Add Task"type="text" name="pName">
+            <button type=submit>Submit</button>
+            <input maxlength=11 autocomplete=off placeholder="Remove Task" type="text" name="rTask">
+            <button type=submit>Submit</button>
+    </form>
+</center>
+<div class="grid" id="song-list">
+    <div class="box">
+        <p>{{tasks}}</p>
+    </div>
+</body>
+</html>
