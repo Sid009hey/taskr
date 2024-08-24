@@ -5,6 +5,18 @@ taskList = []
 displayTask = []
 taskNo = 0
 loadedTask = []
+taskName = None
+
+def nameDecider():
+    global taskName
+    try:
+        taskName = taskList[-1]
+        print("[nameDecider]",taskName) # USELESS ; currently useless.
+    except IndexError:
+        taskName = ""
+        for i in range(0,1):
+            print("[nameDecider] taskName error faced, handled. ; FIXED")
+        errorHandling(-1)    
 
 def saveTasks(filename='tasks.txt'):
     # Overwrite the file with the current list of tasks
@@ -46,7 +58,8 @@ def statusCall():
 def errorHandling(var):
     if var < 0:
         print("[app.py] How did we get here ? ; FIXME")
-
+    if var > 0:
+        print("[app.py] Running Perfect ; FIXED")
 ## displayTask is ; being displayed on screen
 ## taskList is ; internal tasks and parsing. !!COMPLETELY UNFORMATTED!! only use for error checking.
 
@@ -54,6 +67,8 @@ def errorHandling(var):
 ## IMPORTANT  ; DO NOT TOUCH THIS. DATABASE IS HELD WITH THIS.
 
 taskList.extend(loadedTask)
+
+## END ;
 
 @app.route("/")
 def index():
@@ -66,9 +81,29 @@ def index():
         print("[C] 0")
     if rTask in displayTask:
         displayTask.remove(rTask)
-        
+        try:
+            taskList.remove(rTask)
+        except ValueError:
+            for i in range(0,3):                
+                print('[ValueError] CRITICAL. TASK LIST NOT UPDATED. ; FIXME')
+
+    elif rTask not in displayTask and rTask != "":
+        print("[index()] fixing function calls ; FIXME")
+        taskList.append("null_3")
+        taskList.remove("null_3")
+        displayTask = taskList
+        if rTask in displayTask:
+            displayTask.remove(rTask)
+            saveTasks()
+            try: 
+                displayTask.remove(rTask)
+            except ValueError:
+                print("[ValueError] TASK LIST ALREADY UPDATED")  
+                displayTask = taskList
+                saveTasks()
     else:
         print("[C] 0")
+
     
     if pName == "":
         showName = "world"
@@ -83,8 +118,9 @@ def index():
             # reason for reinitiating displayTask is ; to prevent None from appearing 
             displayTask = taskList
     statusCall()
+    nameDecider()
         
-    return render_template("index.html", pName=pName, status=status, tasks=displayTask, bugfix=taskList)
+    return render_template("index.html", taskName=taskName, pName=pName, status=status, tasks=displayTask, bugfix=taskList)
 
 @app.route("/app")
 def appTask():
@@ -107,5 +143,6 @@ def profilePage():
     
     print(username)
     return render_template("profile.html", username=username, taskNo=taskNo, status=status)
+
 
 app.run(host="0.0.0.0",port="5000")
