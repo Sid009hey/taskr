@@ -1,17 +1,30 @@
 from flask import Flask as flask, render_template, request
 app = flask(__name__)
+import json
+import shutil as fm
+import algo
+
+# ALGO.PY ; this is the algorithm module nothing else ; 
+rating = algo.levelSys()
+print(rating)
 
 taskList = []
 displayTask = []
 taskNo = 0
 loadedTask = []
 taskName = None
+zenDict = {}
+
+def zenBoards(k,v):
+    print("[zenBoards DEBUG]",k,v)
+    zenDict[k] = v
+    print(zenDict) 
 
 def nameDecider():
     global taskName
     try:
         taskName = taskList[-1]
-        print("[nameDecider]",taskName) # USELESS ; currently useless.
+        print("[nameDecider]",taskName) # NOT OPTIMAL ; but it works
     except IndexError:
         taskName = ""
         for i in range(0,1):
@@ -31,17 +44,40 @@ def loadTasks(filename='tasks.txt'):
             loadedTask.append(line.strip())
             print(loadedTask)
 loadTasks()
-
+zenBoards("ford","modelt")
 
 ## use extend
 
-def scoreAlgorithm():
+def scoreAlgorithm(): # can be deprecated after algo.py is finished ; FIXME
     return "[sAlgo] 0"
 
 def loopTask(x):
     if x == taskList:
         print("[LT] Task Safe ? Check Length")
         print(len(x))
+
+def jsonDumpCLI():
+    # a Python object (dict):
+    x = {
+      "name": "John",
+      "age": 30,
+      "city": "New York"
+    }
+
+    # convert into JSON:
+    y = json.dumps(x)
+    with open('data.json','w') as file:
+        file.write(y)
+        
+    with open('data.json','r') as file:
+        jstx = file.read()
+        jstx_j = json.loads(jstx)
+    # the result is a JSON string:
+
+    print(y, "NON JSON FILED")  # FYI ; jstx -> is the file that has been READ, jstx_j is the READ file loaded in JSON 
+    print(jstx_j,"JSON LOADEDDD WOHOOOOOOO")
+
+jsonDumpCLI() ## USELESS ; currently dumping useless data ; zenboards will make this useful. hopefully.
 
 def statusCall():
     global status
@@ -57,7 +93,7 @@ def statusCall():
 
 def errorHandling(var):
     if var < 0:
-        print("[app.py] How did we get here ? ; FIXME")
+        print("[app.py] How did we get here ? ; TEST")
     if var > 0:
         print("[app.py] Running Perfect ; FIXED")
 ## displayTask is ; being displayed on screen
@@ -125,7 +161,7 @@ def index():
 @app.route("/app")
 def appTask():
     global taskNo
-    index()
+    index() 
     taskNo = len(taskList) # FIXED ; iteration ghosting
     statusCall()
     return render_template("app.html", taskNo=taskNo, status=status, tasks=displayTask)
@@ -135,12 +171,21 @@ def profilePage():
     appTask()
     global username
 
-    username = request.args.get("username","User")
+    username = request.args.get("username","")
+    usrn = json.dumps(username)
+    with open('meta.json','w') as file:
+        file.write(usrn)
 
     if username == "":
-        print("[profPage] USERNAME EMPTY, RESORTING TO USER.")
-        username = "User"
-    
+        with open('meta.json','r') as file:
+            usrnRead = file.read() # FIXME ; problem writing to json ; json format has quotes for str ; RELATED to line 177
+            username = usrnRead
+            print(username)
+            if username == "":     # this doesnt do anything to permanize ; FIXME               
+                print(username)
+                print("[profPage] USERNAME EMPTY, RESORTING TO USER.")
+                username = "User"
+            
     print(username)
     return render_template("profile.html", username=username, taskNo=taskNo, status=status)
 
